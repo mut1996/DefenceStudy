@@ -1,0 +1,47 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObjectDetector : MonoBehaviour
+{
+    [SerializeField]
+    private TowerSpawner towerSpawner;
+
+    private Camera mainCamera;
+    private Ray ray;
+    private RaycastHit hit;
+
+
+    private void Awake()
+    {
+        // "MainCamera" 의 태그
+        mainCamera = Camera.main;
+    }
+
+
+    private void Update()
+    {
+        if (Input.GetMouseButton(0)) 
+        {
+            // 카메라 위치에서 ㅎ퐈면의 마우스 위치를 관통하는 광선 생성
+            // ray.origin : 광선의 시작 위치(= 카메라 위치)
+            // ray.direction : 광선의 진행 방향 
+            ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+            // 광선에 부딪히는 오브젝트를 검출해서 hit 에 저장 
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
+            {
+                // 광선에 부딪히는 오브젝트 태그가 "Tile" 이면
+                // hit. 의 위치에 스폰 
+                if (hit.transform.CompareTag("Tile")) 
+                {
+                    towerSpawner.SpawnTower(hit.transform);
+                }
+            }
+
+
+        }
+    }
+
+}
