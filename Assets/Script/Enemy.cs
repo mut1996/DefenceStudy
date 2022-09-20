@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     private Movement2D movement2D;
     private EnemySpawner enemySpawner;  // 적의 삭제를 본인이 하지 않고 EnemySpawner에 알려서 삭제 
 
+
+
     public void Setup(EnemySpawner enemySpawner, Transform[] wayPoints)
     {
         movement2D = GetComponent<Movement2D>();

@@ -14,6 +14,8 @@ public class TowerWeapon : MonoBehaviour
     private float attackRate = 0.5f;     // 공격속도
     [SerializeField]
     private float attackRange = 2.0f;   // 공격 범위
+    [SerializeField]
+    private int attackDamage = 1;       // 타워 공격력 
     private WeaponState weaponState = WeaponState.SearchTarget;
     private Transform attackTarget = null;
     private EnemySpawner enemySpawner;
@@ -66,7 +68,7 @@ public class TowerWeapon : MonoBehaviour
             // 제일 가까이 있는 적을 찾기 위해 최초 거리를 최대한 크게 설정
             float closestDistSqr = Mathf.Infinity;
 
-            // EnemySpawner 의 EnemyList에 있는 현재 맴벵 존재하는 모든 적 검사
+            // EnemySpawner 의 EnemyList에 있는 현재 맵에 존재하는 모든 적 검사
             for (int i = 0; i < enemySpawner.EnemyList.Count; ++i) 
             {
                 float distance = Vector3.Distance(enemySpawner.EnemyList[i].transform.position, transform.position);
@@ -121,7 +123,7 @@ public class TowerWeapon : MonoBehaviour
     {
         GameObject clone = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
         // 생성한 발사체에게 공격대상(attackTarget) 제공 
-        clone.GetComponent<Projectile>().Setup(attackTarget);
+        clone.GetComponent<Projectile>().Setup(attackTarget, attackDamage);
        
     }
 }
