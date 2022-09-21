@@ -32,7 +32,7 @@ public class TowerSpawner : MonoBehaviour
         clone.GetComponent<TowerWeapon>().SetUp(enemySpawner);
 
     }
-
+         
 
 }
 
