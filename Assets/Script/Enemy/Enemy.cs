@@ -12,6 +12,9 @@ public class Enemy : MonoBehaviour
     private Movement2D movement2D;
     private EnemySpawner enemySpawner;  // 적의 삭제를 본인이 하지 않고 EnemySpawner에 알려서 삭제 
 
+    [SerializeField]
+    private int gold = 10;
+
 
 
     public void Setup(EnemySpawner enemySpawner, Transform[] wayPoints)
@@ -77,6 +80,9 @@ public class Enemy : MonoBehaviour
             // 적 오브젝트 삭제
             //Destroy(gameObject);
 
+            // 목표지점에서 사망할 떄는 돈을 주지 않도록
+            gold = 0;
+
             OnDie(EnemyDestroyType.Arrive);
         }
     }
@@ -85,6 +91,6 @@ public class Enemy : MonoBehaviour
     public void OnDie(EnemyDestroyType type) 
     {
         // EnemySpawner에서 리스트로 적 정보를 관리하기 때문에 DSestroy()를 직접하지 않고
-        enemySpawner.DestroyEnemy(type, this);
+        enemySpawner.DestroyEnemy(type, this, gold);
     }
 }
