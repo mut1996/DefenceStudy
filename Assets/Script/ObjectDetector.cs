@@ -6,6 +6,8 @@ public class ObjectDetector : MonoBehaviour
 {
     [SerializeField]
     private TowerSpawner towerSpawner;
+    [SerializeField]
+    private TowerDataViewer towerDataViewer;
 
     private Camera mainCamera;
     private Ray ray;
@@ -30,15 +32,21 @@ public class ObjectDetector : MonoBehaviour
 
             // 광선에 부딪히는 오브젝트를 검출해서 hit 에 저장 
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity)) 
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 // 광선에 부딪히는 오브젝트 태그가 "Tile" 이면
                 // hit. 의 위치에 스폰 
-                if (hit.transform.CompareTag("Tile")) 
+                if (hit.transform.CompareTag("Tile"))
                 {
                     towerSpawner.SpawnTower(hit.transform);
                 }
+                // 타워 정보창 on
+                else if (hit.transform.CompareTag("Tower")) 
+                {
+                    towerDataViewer.OnPanel(hit.transform);
+                }
             }
+            
 
 
         }
