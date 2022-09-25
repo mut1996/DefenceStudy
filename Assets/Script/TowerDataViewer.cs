@@ -71,7 +71,6 @@ public class TowerDataViewer : MonoBehaviour
 
         // 업그레이드가 불가능 해지면 버튼 비활성화 
         buttonUpgrade.interactable = currentTower.Level < currentTower.MaxLevel ? true : false;
-
     }
 
     public void OnClickEventTowerUpgrade() 
@@ -92,6 +91,15 @@ public class TowerDataViewer : MonoBehaviour
             // 타워 업그레이드에 필요한 비용이 부족하다고 출력 
             systemTextViewer.PrintText(SystemType.Money);
         }
+    }
+
+    public void OnClickEventTowerSell() 
+    {
+        // 타워 판매
+        currentTower.Sell();
+        // 선택한 타워가 사라져서 Panel, 공격범위 off
+        OffPanel();
+        
     }
 
 }
