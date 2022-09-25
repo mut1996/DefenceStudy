@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum WeaponType { Cannon = 0, Laser}
+public enum WeaponType { Cannon = 0, Laser, Slow}
 public enum WeaponState { SearchTarget = 0, TryAttackCannon, TryAttackLaser, }
 
 public class TowerWeapon : MonoBehaviour
@@ -44,6 +44,7 @@ public class TowerWeapon : MonoBehaviour
     public float Range => towerTemplate.weapon[level].range;
     public int Level => level + 1;
     public int MaxLevel => towerTemplate.weapon.Length;
+    public float Slow => towerTemplate.weapon[level].slow;
 
     //public float Damage => attackDamage;
     //public float Rate => attackRate;
@@ -57,7 +58,13 @@ public class TowerWeapon : MonoBehaviour
         this.owenrTile = ownerTile;
 
         // 최초 상태를 WeaponState.SearchTarget 으로 설정
-        ChangeState(WeaponState.SearchTarget);
+        //  ChangeState(WeaponState.SearchTarget);
+        if (weaponType == WeaponType.Cannon || weaponType == WeaponType.Laser) 
+        {
+            // 최초 상태를 WEaponState.SearchTarget 으로 설정 
+
+            ChangeState(WeaponState.SearchTarget);
+        }
     }
 
     public void ChangeState(WeaponState newState) 
